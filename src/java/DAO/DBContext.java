@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBContext {
-    private static final String URL = "jdbc:mysql://localhost:3306/your_db_name";
+    private static final String URL = "jdbc:mysql://localhost:3306/OnlineSupermarket";
     private static final String USER = "root"; // Thay bằng username MySQL của bạn
     private static final String PASSWORD = "123456"; // Thay bằng mật khẩu MySQL của bạn
     
