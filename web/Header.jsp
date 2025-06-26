@@ -4,6 +4,7 @@
     Author     : sontu
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,7 @@
         <div class="main-top">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                         <div class="right-phone-box">
                             <p>Call US : <a href="#"> 0866445239</a></p>
                         </div>
@@ -58,12 +59,26 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="login-box">
-                            <a href="#" id="login-form" class="selectpicker show-tick form-control" data-placeholder="Sign In">
-                                <option>Sign In</option>
-                            </a>
+                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                        <div class="login-box" style="width: 30%">
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer}">
+                                    <span style="color: red; font-weight: bold; margin-right: 20px">Welcome, ${sessionScope.customer.fullName}!</span>
+                                    <a href="${pageContext.request.contextPath}/logout" class="btn btn-sm btn-outline-secondary ms-2">
+                                        Logout
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/login"
+                                       id="login-form"
+                                       class="selectpicker show-tick form-control"
+                                       data-placeholder="Sign In">
+                                        Sign In
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
+
                         <style>
                             #login-form{
                                 color: white;
@@ -127,13 +142,15 @@
                             <li class="dropdown">
                                 <a href="list_product" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="shop.html">Sidebar Shop</a></li>
                                     <li><a href="shop-detail.html">Shop Detail</a></li>
                                     <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Blogs</a></li>
+                                    <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
