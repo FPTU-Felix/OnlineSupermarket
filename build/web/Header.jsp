@@ -127,15 +127,13 @@
                             <li class="dropdown">
                                 <a href="list_product" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="shop.html">Sidebar Shop</a></li>
                                     <li><a href="shop-detail.html">Shop Detail</a></li>
                                     <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="checkout.html">Blogs</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->

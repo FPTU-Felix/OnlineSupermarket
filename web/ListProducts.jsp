@@ -144,7 +144,7 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                                         <div class="products-single fix">
                                                             <div class="box-img-hover">
-                                                                <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+                                                                <img src="${l.thumbnail}" class="img-fluid" alt="Image">
                                                                 <div class="mask-icon">
                                                                     <ul>
                                                                         <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
