@@ -37,7 +37,7 @@ public class HomeController extends HttpServlet {
             DaoProduct daoProduct = new DaoProduct();
             List<Product> listAllProduct = daoProduct.getAllProduct();
             request.setAttribute("listAllProduct", listAllProduct);
-            request.getRequestDispatcher("ListProducts.jsp").forward(request, response);
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
         }
     }
 

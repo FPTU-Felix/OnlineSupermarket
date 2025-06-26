@@ -74,7 +74,7 @@ public class DaoCart {
         return null;
     }
 
-    public boolean checkProductBeforeAdd(int productID, int sizeID) {
+    public boolean checkProductBeforeAdd(int productID) {
         String sql = "SELECT Product.Status \n"
                 + "FROM Product\n"
                 + "WHERE Product.ProductID = ? AND Product.Status = 'Active';";
@@ -82,7 +82,6 @@ public class DaoCart {
             connection = new DBContext().connection;
             ps = connection.prepareStatement(sql);
             ps.setInt(1, productID);
-            ps.setInt(2, sizeID);
             rs = ps.executeQuery();
             if (rs.next()) {
                 return true;

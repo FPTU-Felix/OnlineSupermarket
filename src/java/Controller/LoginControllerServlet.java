@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name="LoginControllerServlet", urlPatterns={"/login"})
+@WebServlet(name = "LoginControllerServlet", urlPatterns = {"/login"})
 public class LoginControllerServlet extends HttpServlet {
 
     @Override
@@ -32,7 +32,7 @@ public class LoginControllerServlet extends HttpServlet {
         if (customer != null) {
             HttpSession session = request.getSession();
             session.setAttribute("customer", customer);
-            response.sendRedirect(request.getContextPath() + "/HOME.jsp");
+            response.sendRedirect(request.getContextPath() + "/Home.jsp");
         } else {
             request.setAttribute("errorMessage", "Invalid email, password, or account not active.");
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
