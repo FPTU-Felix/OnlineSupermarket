@@ -4,22 +4,21 @@
  */
 package Controller;
 
-import DAO.DaoCart;
-import Model.Cart;
-import Model.Customer;
+import DAO.DaoProduct;
+import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author sontu
  */
-public class AddToCartController extends HttpServlet {
+public class ProductDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,26 +34,12 @@ public class AddToCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DaoCart daoCart = new DaoCart();
-            HttpSession session = request.getSession();
-            Customer customer = (Customer) session.getAttribute("customer");
-            if (customer == null) {
-                response.sendRedirect("login");
-            } else {
-                Cart cartNow = daoCart.getOrCreateCart(customer.getCustomerId());
-                int productID = Integer.parseInt(request.getParameter("productID"));
-                String title = request.getParameter("title");
-                int quantity = Integer.parseInt(request.getParameter("qty"));
-                String thumbnail = request.getParameter("image");
-                double price = Double.parseDouble(request.getParameter("price"));
-                if (daoCart.checkProductBeforeAdd(productID)) {
-                    daoCart.addToCart(cartNow.getCartID(), productID, title, quantity, thumbnail, price);
-                    response.sendRedirect("home");
-                } else
-                {
-                    response.sendRedirect("home");
-                }
-            }
+            DaoProduct daoP = new DaoProduct();
+            Product p = daoP.getProductByID(Integer.parseInt(request.getParameter("id")));
+            List<Product> list4Products = daoP.get4Products();
+            request.setAttribute("ProductDetail", p);
+            request.setAttribute("list4Products", list4Products);
+            request.getRequestDispatcher("ProductDetail.jsp").forward(request, response);
         }
     }
 

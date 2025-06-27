@@ -113,7 +113,7 @@ public class DaoCart {
                 ps.executeUpdate();
             } else {
                 String insertSql = "insert into CartItems (CartID, ProductID, Title, Quantity, Thumbnail, Price) \n"
-                        + "values (?,?,?,?,?,?,?)";
+                        + "values (?,?,?,?,?,?)";
                 ps = connection.prepareStatement(insertSql);
                 ps.setInt(1, cartID);
                 ps.setInt(2, productID);
@@ -237,5 +237,9 @@ public class DaoCart {
         } catch (Exception e) {
         }
         return c;
+    }
+    public static void main(String[] args) {
+        DaoCart d = new DaoCart();
+        System.out.println(d.checkProductBeforeAdd(1));
     }
 }

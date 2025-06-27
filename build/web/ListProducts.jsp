@@ -122,10 +122,8 @@
                                                             <img src="${l.thumbnail}" class="img-fluid" alt="Image">
                                                             <div class="mask-icon">
                                                                 <ul>
-                                                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-chess"></i></a></li>
+                                                                    <li><a href="product_detail?id=${l.id}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                 </ul>
-                                                                <a class="cart" href="add_to_cart">Add to Cart</a>
                                                             </div>
                                                         </div>
                                                         <div class="why-text">
@@ -147,7 +145,7 @@
                                                                 <img src="${l.thumbnail}" class="img-fluid" alt="Image">
                                                                 <div class="mask-icon">
                                                                     <ul>
-                                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                                                        <li><a href="product_detail?id=${l.id}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
