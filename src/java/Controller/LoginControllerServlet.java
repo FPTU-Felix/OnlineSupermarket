@@ -40,11 +40,13 @@ public class LoginControllerServlet extends HttpServlet {
                 session.setAttribute("employee", emp);
                 int roleId = emp.getRoleId();
                 if (roleId == 1) {
-                    redirectPath = request.getContextPath() + "/admin/dashboard.jsp";
+                    redirectPath = request.getContextPath() + "/admin-home.jsp";
                 } else if (roleId == 2) {
-                    redirectPath = request.getContextPath() + "/sales/dashboard.jsp";
+                    redirectPath = request.getContextPath() + "/salestaff-home.jsp";
+                } else if (roleId == 3) {
+                    redirectPath = request.getContextPath() + "/salemanager-home.jsp";
                 } else {
-                    redirectPath = request.getContextPath() + "/employee/home.jsp";
+                    redirectPath = request.getContextPath() + "/warehouse_dashbroad";
                 }
                 response.sendRedirect(redirectPath);
                 return;
@@ -59,7 +61,7 @@ public class LoginControllerServlet extends HttpServlet {
             Customer cust = CustomerDAO.INSTANCE.login(email, password);
             if (cust != null) {
                 session.setAttribute("customer", cust);
-                redirectPath = request.getContextPath() + "/Home.jsp";
+                redirectPath = request.getContextPath() + "/home";
             } else {
                 request.setAttribute("errorMessage",
                         "Invalid credentials or customer account not active.");

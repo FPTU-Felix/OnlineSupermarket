@@ -20,6 +20,14 @@
         <servlet-name>ProductDetailController</servlet-name>
         <servlet-class>Controller.ProductDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WarehouseDashbroad</servlet-name>
+        <servlet-class>Controller.WarehouseDashbroad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderForWarehouse</servlet-name>
+        <servlet-class>Controller.OrderForWarehouse</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -39,5 +47,13 @@
     <servlet-mapping>
         <servlet-name>ProductDetailController</servlet-name>
         <url-pattern>/product_detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WarehouseDashbroad</servlet-name>
+        <url-pattern>/warehouse_dashbroad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderForWarehouse</servlet-name>
+        <url-pattern>/orderforwarehouse</url-pattern>
     </servlet-mapping>
 </web-app>
