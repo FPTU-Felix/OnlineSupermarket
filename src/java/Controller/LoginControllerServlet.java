@@ -42,9 +42,9 @@ public class LoginControllerServlet extends HttpServlet {
                 if (roleId == 1) {
                     redirectPath = request.getContextPath() + "/admin-home.jsp";
                 } else if (roleId == 2) {
-                    redirectPath = request.getContextPath() + "/salestaff-home.jsp";
+                    redirectPath = request.getContextPath() + "/salestaff_dashbroad";
                 } else if (roleId == 3) {
-                    redirectPath = request.getContextPath() + "/salemanager-home.jsp";
+                    redirectPath = request.getContextPath() + "/salestaff_dashbroad";
                 } else {
                     redirectPath = request.getContextPath() + "/warehouse_dashbroad";
                 }

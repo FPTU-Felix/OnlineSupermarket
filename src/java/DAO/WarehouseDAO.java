@@ -52,14 +52,12 @@ public class WarehouseDAO extends DBContext {
 
     public List<Attribute> getAllStatus() {
         List<Attribute> list = new ArrayList<>();
-        String sql = "SELECT [StatusID]\n"
-                + "      ,[StatusName]\n"
-                + "  FROM [dbo].[Status]";
+        String sql = "SELECT StatusID, StatusName FROM `Status`";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-
             ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
                 Attribute c = new Attribute(rs.getInt("StatusID"),
                         rs.getString("StatusName"));
@@ -75,84 +73,70 @@ public class WarehouseDAO extends DBContext {
     public List<OrderInfo> getOrderByWarehouse(String datefrom, String dateto, String cusname, String statusid, String status) {
         List<OrderInfo> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT \n"
-                + "    Orders.OrderID, \n"
-                + "    Orders.CustomerID,  \n"
-                + "    Customer.FullName AS CustomerName,\n"
-                + "    (SELECT Title \n"
-                + "     FROM OrderDetails \n"
-                + "     WHERE OrderID = Orders.OrderID \n"
-                + "     AND OrderDetailID = (SELECT MIN(OrderDetailID) \n"
-                + "                          FROM OrderDetails \n"
-                + "                          WHERE OrderID = Orders.OrderID)) AS FirstTitle,\n"
-                + "    COUNT(OrderDetails.ProductID) - 1 AS OtherProducts, \n"
-                + "    SUM(OrderDetails.Quantity * OrderDetails.Price) AS TotalCost,\n"
-                + "    Orders.StatusID, \n"
-                + "    [Status].StatusName, \n"
-                + "    Orders.PaymentMethod, \n"
-                + "    Orders.CreatedOrder, \n"
-                + "    Orders.SaleID, \n"
-                + "    Employee.FullName AS SaleName,\n"
-                + "    Orders.ReceiverMobile,\n"
-                + "    Orders.ReceiverAddress,\n"
-                + "    Orders.SaleNotes\n"
-                + "FROM \n"
-                + "    Orders \n"
-                + "INNER JOIN \n"
-                + "    Status ON Orders.StatusID = Status.StatusID \n"
-                + "INNER JOIN \n"
-                + "    Customer ON Orders.CustomerID = Customer.CustomerID \n"
-                + "INNER JOIN \n"
-                + "    Employee ON Orders.SaleID = Employee.EmployeeID \n"
-                + "INNER JOIN \n"
-                + "    OrderDetails ON Orders.OrderID = OrderDetails.OrderID\n"
-                + "WHERE 1=1 ");
+        sql.append("SELECT ")
+                .append("    o.OrderID, ")
+                .append("    o.CustomerID,  ")
+                .append("    c.FullName AS CustomerName, ")
+                .append("    (SELECT od.Title ")
+                .append("     FROM OrderDetails od ")
+                .append("     WHERE od.OrderID = o.OrderID ")
+                .append("     AND od.OrderDetailID = (SELECT MIN(od2.OrderDetailID) ")
+                .append("                              FROM OrderDetails od2 ")
+                .append("                              WHERE od2.OrderID = o.OrderID)) AS FirstTitle, ")
+                .append("    COUNT(od.ProductID) - 1 AS OtherProducts, ")
+                .append("    SUM(od.Quantity * od.Price) AS TotalCost, ")
+                .append("    o.StatusID, ")
+                .append("    s.StatusName, ")
+                .append("    o.PaymentMethod, ")
+                .append("    o.CreatedOrder, ")
+                .append("    o.SaleID, ")
+                .append("    e.FullName AS SaleName, ")
+                .append("    o.ReceiverMobile, ")
+                .append("    o.ReceiverAddress, ")
+                .append("    o.SaleNotes ")
+                .append("FROM Orders o ")
+                .append("INNER JOIN `Status` s ON o.StatusID = s.StatusID ")
+                .append("INNER JOIN Customer c ON o.CustomerID = c.CustomerID ")
+                .append("INNER JOIN Employee e ON o.SaleID = e.EmployeeID ")
+                .append("INNER JOIN OrderDetails od ON o.OrderID = od.OrderID ")
+                .append("WHERE o.StatusID IN (2,4,5,6,7,8) ");
 
-        sql.append("AND Orders.StatusID IN (2,4,5,6,7,8) ");
-
+        // dynamic filters
         if (datefrom != null && !datefrom.isEmpty()) {
-            sql.append("AND Orders.CreatedOrder >= ? ");
+            sql.append("AND o.CreatedOrder >= ? ");
         }
-
         if (dateto != null && !dateto.isEmpty()) {
-            sql.append("AND Orders.CreatedOrder <= ? ");
+            sql.append("AND o.CreatedOrder <= ? ");
         }
-
         if (cusname != null && !cusname.isEmpty()) {
-            sql.append("AND Customer.FullName LIKE ? ");
+            sql.append("AND c.FullName LIKE ? ");
         }
         if (statusid != null && !statusid.isEmpty()) {
-            sql.append("AND Orders.StatusID = ? ");
+            sql.append("AND o.StatusID = ? ");
         }
-
         if (status != null && !status.isEmpty()) {
-            if (status.equalsIgnoreCase("process")) {
-                sql.append("AND Orders.StatusID IN (2,4,5,6) ");
-
-            } else if (status.equalsIgnoreCase("delivered")) {
-                sql.append("AND Orders.StatusID = 7 ");
-
-            } else {
-                sql.append("AND Orders.StatusID = 8 ");
-
+            switch (status.toLowerCase()) {
+                case "process":
+                    sql.append("AND o.StatusID IN (2,4,5,6) ");
+                    break;
+                case "delivered":
+                    sql.append("AND o.StatusID = 7 ");
+                    break;
+                default:
+                    sql.append("AND o.StatusID = 8 ");
+                    break;
             }
         }
-        sql.append("GROUP BY \n"
-                + "    Orders.OrderID, \n"
-                + "    Orders.CustomerID,  \n"
-                + "    Customer.FullName,\n"
-                + "    Orders.StatusID, \n"
-                + "    [Status].StatusName, \n"
-                + "    Orders.PaymentMethod, \n"
-                + "    Orders.CreatedOrder, \n"
-                + "    Orders.SaleID, \n"
-                + "    Employee.FullName,\n"
-                + "    Orders.ReceiverMobile,\n"
-                + "    Orders.ReceiverAddress,\n"
-                + "    Orders.SaleNotes");
+
+        sql.append("GROUP BY ")
+                .append("    o.OrderID, o.CustomerID, c.FullName, o.StatusID, s.StatusName, ")
+                .append("    o.PaymentMethod, o.CreatedOrder, o.SaleID, e.FullName, ")
+                .append("    o.ReceiverMobile, o.ReceiverAddress, o.SaleNotes ");
+
         if (status != null && !status.isEmpty()) {
-            sql.append(" ORDER BY Orders.StatusID ");
+            sql.append("ORDER BY o.StatusID ");
         }
+
         try {
             PreparedStatement st = connection.prepareStatement(sql.toString());
             int count = 1;
@@ -160,11 +144,9 @@ public class WarehouseDAO extends DBContext {
             if (datefrom != null && !datefrom.isEmpty()) {
                 st.setString(count++, datefrom);
             }
-
             if (dateto != null && !dateto.isEmpty()) {
                 st.setString(count++, dateto);
             }
-
             if (cusname != null && !cusname.isEmpty()) {
                 st.setString(count++, "%" + cusname + "%");
             }
@@ -174,7 +156,8 @@ public class WarehouseDAO extends DBContext {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                OrderInfo c = new OrderInfo(rs.getInt("OrderID"),
+                OrderInfo c = new OrderInfo(
+                        rs.getInt("OrderID"),
                         rs.getInt("CustomerID"),
                         rs.getString("CustomerName"),
                         rs.getString("FirstTitle"),
@@ -188,11 +171,12 @@ public class WarehouseDAO extends DBContext {
                         rs.getString("SaleName"),
                         rs.getString("ReceiverMobile"),
                         rs.getString("ReceiverAddress"),
-                        rs.getString("SaleNotes"));
+                        rs.getString("SaleNotes")
+                );
                 list.add(c);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("SQL Error: " + e.getMessage());
         }
 
         return list;
@@ -200,15 +184,12 @@ public class WarehouseDAO extends DBContext {
 
     public List<ProductQty> getAllProductQuantity() {
         List<ProductQty> list = new ArrayList<>();
-        String sql = "SELECT [ProductID]\n"
-                + "      ,[Quantity]\n"
-                + "      ,[Hold]\n"
-                + "  FROM [dbo].[Product]";
+        String sql = "SELECT ProductID, Quantity, Hold FROM Product";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-
             ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
                 ProductQty c = new ProductQty(
                         rs.getInt("ProductID"),
@@ -225,10 +206,10 @@ public class WarehouseDAO extends DBContext {
     }
 
     public void updateQuantityProduct(List<OrderDetail> orderdetail, List<ProductQty> products) {
-        String sql = "UPDATE [dbo].[Product]\n"
-                + "   SET [Quantity] = [Quantity] - ?\n"
-                + "      ,[Hold] = [Hold] - ?\n"
-                + " WHERE [ProductID] = ?";
+        String sql = "UPDATE Product\n"
+                + "   SET Quantity = Quantity - ?\n"
+                + "      ,Hold = Hold - ?\n"
+                + " WHERE ProductID = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -251,9 +232,9 @@ public class WarehouseDAO extends DBContext {
 
     public List<OrderDetail> getOrderDetailByID(String orderid) {
         List<OrderDetail> list = new ArrayList<>();
-        String sql = "SELECT OrderDetails.OrderDetailID, OrderDetails.OrderID, OrderDetails.ProductID, OrderDetails.Title, OrderDetails.Quantity, OrderDetails.Thumbnail, OrderDetails.Price\n"
-                + "FROM     OrderDetails\n"
-                + "				  WHERE OrderDetails.OrderID = ?";
+        String sql = "SELECT OrderDetailID, OrderID, ProductID, Title, Quantity, Thumbnail, Price\n"
+                + "FROM    OrderDetails\n"
+                + "WHERE OrderID = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -279,9 +260,9 @@ public class WarehouseDAO extends DBContext {
     }
 
     public void updateOrderStatus(String orderid, String statusid) {
-        String sql = "UPDATE [dbo].[Orders]\n"
-                + "   SET [StatusID] = ?\n"
-                + " WHERE [OrderID] = ?";
+        String sql = "UPDATE Orders\n"
+                + "   SET StatusID = ?\n"
+                + " WHERE OrderID = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -576,6 +557,6 @@ public class WarehouseDAO extends DBContext {
 
     public static void main(String[] args) {
         WarehouseDAO d = new WarehouseDAO();
-        System.out.println(d.getOrderForWarehouse().getType1());
+        System.out.println(d.getAllStatus().isEmpty());
     }
 }

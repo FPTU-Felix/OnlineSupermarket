@@ -87,6 +87,7 @@
                                     <a class="gray_btn" href="allproduct">Go Shopping!</a>
                                 </div>
                             </c:if>
+
                             <c:if test="${!empty listCartNow}">
                                 <table class="table">
                                     <thead>
@@ -103,75 +104,144 @@
                                         <c:forEach items="${listCartNow}" var="l">
                                             <tr>
                                                 <td class="thumbnail-img">
-                                                    <a href="#">
-                                                        <img class="img-fluid" src="${l.thumbnail}" alt="img" />
-                                                    </a>
+                                                    <a href="#"><img class="img-fluid" src="${l.thumbnail}" alt="img" /></a>
                                                 </td>
-                                                <td class="name-pr">
-                                                    <a href="#">
-                                                        ${l.title}
-                                                    </a>
+                                                <td class="name-pr"><a href="#">${l.title}</a></td>
+                                                <td class="price-pr"><p class="price">${l.price}</p></td>
+                                                <td class="form-group quantity-box">
+                                                    <div class="product_count">
+                                                        <button onclick="updateQuantity(this, -1);" class="reduced items-count" type="button">-</button>
+                                                        <input type="text" name="qty" class="input-text qty" maxlength="12" value="${l.quantity}" title="Quantity:">
+                                                        <button onclick="updateQuantity(this, 1);" class="increase items-count" type="button">+</button>
+                                                    </div>
                                                 </td>
-                                                <td class="price-pr">
-                                                    <p>${l.price} VND</p>
-                                                </td>
-                                                <td class="quantity-box"><input type="number" size="4" value="1" min="0" step="1" class="c-input-text qty text"></td>
-                                                <td class="total-pr">
-                                                    <p>$ 80.0</p>
-                                                </td>
+                                                <td class="total-pr"><p class="total">${l.price * l.quantity}</p></td>
                                                 <td class="remove-pr">
-                                                    <a href="#">
+                                                    <a href="deletecart?service=deleteItem&cartItemID=${l.cartItemID}" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?');">
                                                         <i class="fas fa-times"></i>
                                                     </a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4" class="text-right"><strong>Subtotal</strong></td>
+                                            <td colspan="2"><strong><span id="subtotal">0.00</span> VND</strong></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </c:if>
                         </div>
                     </div>
                 </div>
                 <div class="row my-5">
-                    <div class="col-lg-8 col-sm-12"></div>
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="order-box">
-                            <h3>Order summary</h3>
-                            <div class="d-flex">
-                                <h4>Sub Total</h4>
-                                <div class="ml-auto font-weight-bold"> $ 130 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>Discount</h4>
-                                <div class="ml-auto font-weight-bold"> $ 40 </div>
-                            </div>
-                            <hr class="my-1">
-                            <div class="d-flex">
-                                <h4>Coupon Discount</h4>
-                                <div class="ml-auto font-weight-bold"> $ 10 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>Tax</h4>
-                                <div class="ml-auto font-weight-bold"> $ 2 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>Shipping Cost</h4>
-                                <div class="ml-auto font-weight-bold"> Free </div>
-                            </div>
-                            <hr>
-                            <div class="d-flex gr-total">
-                                <h5>Grand Total</h5>
-                                <div class="ml-auto h5"> $ 388 </div>
-                            </div>
-                            <hr> </div>
+                    <div class="col-12 d-flex shopping-box">
+                        <a href="cartcontact" class="ml-auto btn hvr-hover">Process to checkout</a>
                     </div>
-                    <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
                 </div>
-
             </div>
         </div>
-        <!-- End Cart -->
+
+        <!-- CSS fix click + style -->
+        <style>
+            .empty-cart-message {
+                text-align: center;
+                font-size: 36px;
+                font-weight: bold;
+                color: #333;
+                margin-top: 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 80vh;
+            }
+
+            .empty-cart-message a {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 15px 30px;
+                background-color: #007bff;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 18px;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+            }
+
+            .empty-cart-message a:hover {
+                background-color: #0056b3;
+            }
+
+            .product_count {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .product_count input.qty {
+                width: 50px;
+                text-align: center;
+                height: 32px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .product_count button {
+                width: 32px;
+                height: 32px;
+                background-color: #eee;
+                border: 1px solid #ccc;
+                font-size: 18px;
+                font-weight: bold;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+
+            .product_count button:hover {
+                background-color: #ddd;
+            }
+        </style>
+
+        <!-- Script tăng/giảm và tính tổng -->
+        <script>
+            function updateQuantity(button, change) {
+                const row = button.closest('tr');
+                const qtyInput = row.querySelector('.qty');
+                const priceText = row.querySelector('.price').textContent.replace(/[^\d.]/g, '');
+                const price = parseFloat(priceText);
+                let qty = parseInt(qtyInput.value);
+
+                if (!isNaN(qty)) {
+                    qty += change;
+                    if (qty < 1)
+                        qty = 1;
+                    qtyInput.value = qty;
+
+                    const total = (price * qty).toFixed(2);
+                    row.querySelector('.total').textContent = total;
+
+                    calculateSubtotal();
+                }
+            }
+
+            function calculateSubtotal() {
+                const totals = document.querySelectorAll('.total');
+                let subtotal = 0;
+                totals.forEach(el => {
+                    const val = parseFloat(el.textContent.replace(/[^\d.]/g, ''));
+                    if (!isNaN(val))
+                        subtotal += val;
+                });
+                document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            }
+
+            window.onload = calculateSubtotal;
+        </script>
+
 
         <!-- Start Instagram Feed  -->
         <div class="instagram-box">

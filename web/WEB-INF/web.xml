@@ -28,6 +28,42 @@
         <servlet-name>OrderForWarehouse</servlet-name>
         <servlet-class>Controller.OrderForWarehouse</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartContactController</servlet-name>
+        <servlet-class>Controller.CartContactController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReceiverController</servlet-name>
+        <servlet-class>Controller.ReceiverController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartCompletionController</servlet-name>
+        <servlet-class>Controller.CartCompletionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerOrderController</servlet-name>
+        <servlet-class>Controller.CustomerOrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelPendingOrder</servlet-name>
+        <servlet-class>Controller.CancelPendingOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleStaffDashbroad</servlet-name>
+        <servlet-class>Controller.SaleStaffDashbroad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderForSale</servlet-name>
+        <servlet-class>Controller.OrderForSale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartController</servlet-name>
+        <servlet-class>Controller.DeleteCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailForSale</servlet-name>
+        <servlet-class>Controller.OrderDetailForSale</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -56,4 +92,43 @@
         <servlet-name>OrderForWarehouse</servlet-name>
         <url-pattern>/orderforwarehouse</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartContactController</servlet-name>
+        <url-pattern>/cartcontact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReceiverController</servlet-name>
+        <url-pattern>/receiver</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartCompletionController</servlet-name>
+        <url-pattern>/cartcompletion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerOrderController</servlet-name>
+        <url-pattern>/customer_order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelPendingOrder</servlet-name>
+        <url-pattern>/cancel_pending_order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleStaffDashbroad</servlet-name>
+        <url-pattern>/salestaff_dashbroad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderForSale</servlet-name>
+        <url-pattern>/orderforsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartController</servlet-name>
+        <url-pattern>/deletecart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailForSale</servlet-name>
+        <url-pattern>/orderdetailforsale</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>

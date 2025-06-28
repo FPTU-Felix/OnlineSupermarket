@@ -238,8 +238,79 @@ public class DaoCart {
         }
         return c;
     }
+
+    public CartIteam getCartItemByCartID(int cartID) {
+        String sql = "Select *from CartItems where CartID = ?";
+        CartIteam c = null;
+        try {
+            connection = new DBContext().connection;
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, cartID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int CartItemID = rs.getInt(1);
+                int cartid = rs.getInt(2);
+                int productID = rs.getInt(3);
+                String title = rs.getString(4);
+                int quanlity = rs.getInt(5);
+                String thumbnail = rs.getString(6);
+                double price = rs.getDouble(7);
+                c = new CartIteam(CartItemID, cartid, productID, title, quanlity, thumbnail, price);
+            }
+        } catch (Exception e) {
+        }
+        return c;
+    }
+
+    public int getCartIDByCustomerID(int cusID) {
+        String sql = "Select *from Cart where CustomerID = ?";
+        try {
+            connection = new DBContext().connection;
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, cusID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+
+    public Cart getCartfromUserID(int customerID) {
+        String sql = "SELECT * FROM Cart WHERE CustomerID = ?";
+        try {
+            connection = new DBContext().connection;
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, customerID);
+            rs = ps.executeQuery();
+
+            // Kiểm tra nếu có kết quả
+            if (rs.next()) {
+                return new Cart(rs.getInt("cartID"), rs.getInt("CustomerID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo đóng các tài nguyên sau khi sử dụng
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         DaoCart d = new DaoCart();
-        System.out.println(d.checkProductBeforeAdd(1));
     }
 }

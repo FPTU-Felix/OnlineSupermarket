@@ -144,8 +144,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="list_product">Shop</a></li>
                                     <li><a href="cart">Cart</a></li>
-                                    <li><a href="checkout.html">Orders</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
+                                    <li><a href="customer_order">My Orders</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
