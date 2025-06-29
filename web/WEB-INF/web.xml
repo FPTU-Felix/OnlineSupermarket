@@ -63,6 +63,7 @@
     <servlet>
         <servlet-name>OrderDetailForSale</servlet-name>
         <servlet-class>Controller.OrderDetailForSale</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>OrderReviewRestController</servlet-name>
         <servlet-class>Controller.OrderReviewRestController</servlet-class>
@@ -135,9 +136,6 @@
         <servlet-name>OrderDetailForSale</servlet-name>
         <url-pattern>/orderdetailforsale</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
     <servlet-mapping>
         <servlet-name>OrderReviewRestController</servlet-name>
         <url-pattern>/orders/api/v1</url-pattern>
@@ -146,4 +144,7 @@
         <servlet-name>OrderDetailsRestController</servlet-name>
         <url-pattern>/order-detail/api/v1</url-pattern>
     </servlet-mapping>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>
