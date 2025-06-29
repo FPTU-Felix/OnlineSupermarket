@@ -12,13 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         let orderId = button.getAttribute('data-id');
         console.log(orderId);
-        fetch(`orders/api/v1?orderID=${orderId}`)
+        fetch(`orders/api/v1`)
                 .then(response => {
                     if (!response.ok)
                         throw new Error("Network response was not ok");
                     return response.json();
                 })
-                .then(([{ receiverName, receiverGender, receiverEmail, receiverMobile, receiverAddress }]) => {
+                .then(data => {
+                    let found = data?.find(item => item.orderID == orderId);
+                    const {receiverName, receiverGender, receiverEmail, receiverMobile, receiverAddress} = found || {};
                     let tbody = document.getElementById('order-receiver-body');
                     tbody.innerHTML = "";
 

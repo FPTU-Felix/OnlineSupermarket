@@ -14,17 +14,18 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
 
         let orderId = button.getAttribute('data-id');
-        fetch(`order-detail/api/v1?orderID=${orderId}`)
+        fetch(`order-detail/api/v1`)
                 .then(response => {
                     if (!response.ok)
                         throw new Error("Network response was not ok");
                     return response.json();
                 })
                 .then(data => {
+                    data2 = data?.filter(item => item.orderID == orderId);
                     let tbody = document.getElementById('order-details-body');
                     tbody.innerHTML = "";
 
-                    data.forEach(item => {
+                    data2.forEach(item => {
                         let row = document.createElement('tr');
                         row.innerHTML = `
                         <td>${item.title}</td>
