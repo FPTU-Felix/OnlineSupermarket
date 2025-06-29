@@ -33,6 +33,11 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
+    public Customer(int customerId, String fullName) {
+        this.customerId = customerId;
+        this.fullName = fullName;
+    }
+    
     // getters & setters
     public int getCustomerId() {
         return customerId;

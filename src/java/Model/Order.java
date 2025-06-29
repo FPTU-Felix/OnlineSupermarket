@@ -13,6 +13,7 @@ import java.util.Date;
 public class Order {
 
     private int orderID, customerD;
+    private String customerName;
     private String receiverName, receiverGender, receiverEmail, receiverMobile, receiverAddress, receiverNotes;
     private int statusID;
     private String statusName;
@@ -39,6 +40,22 @@ public class Order {
         this.createdOrder = createdOrder;
         this.saleID = saleID;
         this.saleNotes = saleNotes;
+    }
+
+    public Order(int orderID, int customerD, String customerName, String receiverName, String receiverGender, String receiverEmail, String receiverMobile, String receiverAddress, String receiverNotes, int statusID, String statusName, String paymentMethod, Date createdOrder) {
+        this.orderID = orderID;
+        this.customerD = customerD;
+        this.customerName = customerName;
+        this.receiverName = receiverName;
+        this.receiverGender = receiverGender;
+        this.receiverEmail = receiverEmail;
+        this.receiverMobile = receiverMobile;
+        this.receiverAddress = receiverAddress;
+        this.receiverNotes = receiverNotes;
+        this.statusID = statusID;
+        this.statusName = statusName;
+        this.paymentMethod = paymentMethod;
+        this.createdOrder = createdOrder;
     }
 
     public int getOrderID() {
@@ -153,5 +170,4 @@ public class Order {
         this.saleNotes = saleNotes;
     }
 
-    
 }

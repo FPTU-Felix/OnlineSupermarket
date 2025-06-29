@@ -34,7 +34,7 @@ public class CustomerDAO extends DBContext {
             ps.setString(1, customer.getEmail());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return false;  
+                    return false;
                 }
             }
         } catch (SQLException ex) {
@@ -96,4 +96,5 @@ public class CustomerDAO extends DBContext {
         }
         return null;
     }
+
 }
