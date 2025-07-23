@@ -23,7 +23,7 @@ public class EmployeeDAO extends DBContext {
 
     public Employee login(String email, String password) {
         String sql = "SELECT * FROM Employee "
-                   + "WHERE Email = ? AND Password = ? AND Status = 'Active'";
+                + "WHERE Email = ? AND Password = ? AND Status = 'Active'";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.setString(2, password);
@@ -49,5 +49,32 @@ public class EmployeeDAO extends DBContext {
             Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public void banAnUser(int userId) {
+        String sql = "UPDATE Employee\n"
+                + "SET Status = 'Inactive'\n"
+                + "WHERE EmployeeID = ?;";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unbanAnUser(int userId) {
+        String sql = "UPDATE Employee\n"
+                + "SET Status = 'Active'\n"
+                + "WHERE EmployeeID = ?;";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) {
+        EmployeeDAO.INSTANCE.banAnUser(2);
     }
 }

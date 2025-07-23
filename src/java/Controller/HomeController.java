@@ -4,7 +4,11 @@
  */
 package Controller;
 
+import DAO.DaoCart;
 import DAO.DaoProduct;
+import Model.Cart;
+import Model.CartIteam;
+import Model.Customer;
 import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,7 +41,7 @@ public class HomeController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DaoProduct daoProduct = new DaoProduct();
             List<Product> listAllProduct = daoProduct.getAllProduct();
-            request.setAttribute("listAllProduct", listAllProduct);
+            request.setAttribute("listAllProduct", listAllProduct); 
             request.getRequestDispatcher("Home.jsp").forward(request, response);
         }
     }

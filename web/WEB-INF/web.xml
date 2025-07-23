@@ -64,6 +64,22 @@
         <servlet-name>OrderDetailForSale</servlet-name>
         <servlet-class>Controller.OrderDetailForSale</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>Controller.UserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDashBoard</servlet-name>
+        <servlet-class>Controller.AdminDashBoard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BanUserController</servlet-name>
+        <servlet-class>Controller.BanUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnbanUserController</servlet-name>
+        <servlet-class>Controller.UnbanUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -127,6 +143,22 @@
     <servlet-mapping>
         <servlet-name>OrderDetailForSale</servlet-name>
         <url-pattern>/orderdetailforsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/userlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashBoard</servlet-name>
+        <url-pattern>/AdminDashBoard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BanUserController</servlet-name>
+        <url-pattern>/banUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnbanUserController</servlet-name>
+        <url-pattern>/UnbanUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

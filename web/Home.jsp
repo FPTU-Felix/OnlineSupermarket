@@ -113,19 +113,19 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="shop-cat-box">
                             <img class="img-fluid" src="images/categories_img_01.jpg" alt="" />
-                            <a class="btn hvr-hover" href="#">Lorem ipsum dolor</a>
+                            <a class="btn hvr-hover" href="#">Potatoes</a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="shop-cat-box">
                             <img class="img-fluid" src="images/categories_img_02.jpg" alt="" />
-                            <a class="btn hvr-hover" href="#">Lorem ipsum dolor</a>
+                            <a class="btn hvr-hover" href="#">Carrot</a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="shop-cat-box">
                             <img class="img-fluid" src="images/categories_img_03.jpg" alt="" />
-                            <a class="btn hvr-hover" href="#">Lorem ipsum dolor</a>
+                            <a class="btn hvr-hover" href="#">Vegetable</a>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                     <div class="col-lg-12">
                         <div class="title-all text-center">
                             <h1>Fruits & Vegetables</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                            <p>Awesome World or Vegetable are waitting for you~</p>
                         </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                             <div class="why-text">
-                                <h4>Lorem ipsum dolor sit amet</h4>
+                                <h4>Carrot</h4>
                                 <h5> $7.79</h5>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="why-text">
-                                <h4>Lorem ipsum dolor sit amet</h4>
+                                <h4>Potatoes</h4>
                                 <h5> $9.79</h5>
                             </div>
                         </div>
@@ -237,7 +237,7 @@
                                 </div>
                             </div>
                             <div class="why-text">
-                                <h4>Lorem ipsum dolor sit amet</h4>
+                                <h4>Apple</h4>
                                 <h5> $10.79</h5>
                             </div>
                         </div>
@@ -260,7 +260,7 @@
                                 </div>
                             </div>
                             <div class="why-text">
-                                <h4>Lorem ipsum dolor sit amet</h4>
+                                <h4>Durian</h4>
                                 <h5> $15.79</h5>
                             </div>
                         </div>

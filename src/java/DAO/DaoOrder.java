@@ -168,42 +168,42 @@ public class DaoOrder {
         return list;
     }
 
-    public List<Order> getAllAssignedOrder(int saleId) {
-        String sql = """
-                     SELECT o.OrderID, o.CustomerID, o.ReceiverName, o.ReceiverGender, o.ReceiverEmail,
-                      o.ReceiverMobile, o.ReceiverAddress, o.ReceiverNotes, s.StatusID, o.PaymentMethod,
-                      o.PaymentStatus, o.CreatedOrder, o.SaleID, s.StatusName, c.FullName FROM orders o JOIN status s
-                     ON o.StatusID = s.StatusID JOIN customer c ON o.CustomerID = c.CustomerID
-                     WHERE SaleID = ?
-                     ORDER BY o.StatusID ASC, o.CreatedOrder DESC""";
-        List<Order> l = new ArrayList<>();
-        try {
-            connection = new DBContext().connection;
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, saleId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int orderId = rs.getInt(1);
-                int customerId = rs.getInt(2);
-                String receiverName = rs.getString(3);
-                String receiverGender = rs.getString(4);
-                String receiverEmail = rs.getString(5);
-                String receiverMobile = rs.getString(6);
-                String receiverAddress = rs.getString(7);
-                String receiverNotes = rs.getString(8);
-                int statusId = rs.getInt(9);
-                String paymentMethod = rs.getString(10);
-                String PaymentStatus = rs.getString(11);
-                Date createdOrder = rs.getDate(12);
-                String statusName = rs.getString(14);
-                String fullName = rs.getString(15);
-                l.add(new Order(orderId, customerId, fullName, receiverName, receiverGender, receiverEmail, receiverMobile, receiverAddress, receiverNotes, statusId, statusName, paymentMethod, createdOrder));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return l;
-    }
+//    public List<Order> getAllAssignedOrder(int saleId) {
+//        String sql = """
+//                     SELECT o.OrderID, o.CustomerID, o.ReceiverName, o.ReceiverGender, o.ReceiverEmail,
+//                      o.ReceiverMobile, o.ReceiverAddress, o.ReceiverNotes, s.StatusID, o.PaymentMethod,
+//                      o.PaymentStatus, o.CreatedOrder, o.SaleID, s.StatusName, c.FullName FROM orders o JOIN status s
+//                     ON o.StatusID = s.StatusID JOIN customer c ON o.CustomerID = c.CustomerID
+//                     WHERE SaleID = ?
+//                     ORDER BY o.StatusID ASC, o.CreatedOrder DESC""";
+//        List<Order> l = new ArrayList<>();
+//        try {
+//            connection = new DBContext().connection;
+//            ps = connection.prepareStatement(sql);
+//            ps.setInt(1, saleId);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                int orderId = rs.getInt(1);
+//                int customerId = rs.getInt(2);
+//                String receiverName = rs.getString(3);
+//                String receiverGender = rs.getString(4);
+//                String receiverEmail = rs.getString(5);
+//                String receiverMobile = rs.getString(6);
+//                String receiverAddress = rs.getString(7);
+//                String receiverNotes = rs.getString(8);
+//                int statusId = rs.getInt(9);
+//                String paymentMethod = rs.getString(10);
+//                String PaymentStatus = rs.getString(11);
+//                Date createdOrder = rs.getDate(12);
+//                String statusName = rs.getString(14);
+//                String fullName = rs.getString(15);
+//                l.add(new Order(orderId, customerId, receiverName, receiverGender, receiverEmail, receiverMobile, receiverAddress, receiverNotes, statusId, statusName, paymentMethod, createdOrder));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return l;
+//    }
 
     public List<OrderDetail> getOrdersDetails() {
         String sql = """
@@ -248,24 +248,24 @@ public class DaoOrder {
         return true;
     }
 
-    public Customer getCustomerById(int id) {
-        String sql = "SELECT * FROM customer WHERE CustomerID = ?";
-        Customer c;
-
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int customerId = rs.getInt(1);
-                    String fullName = rs.getString(2);
-                    c = new Customer(customerId, fullName);
-                    return c;
-                }
-            }
-        } catch (SQLException ex) {
-        }
-        return null;
-    }
+//    public Customer getCustomerById(int id) {
+//        String sql = "SELECT * FROM customer WHERE CustomerID = ?";
+//        Customer c;
+//
+//        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+//            ps.setInt(1, id);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                if (rs.next()) {
+//                    int customerId = rs.getInt(1);
+//                    String fullName = rs.getString(2);
+//                    c = new Customer(customerId, fullName);
+//                    return c;
+//                }
+//            }
+//        } catch (SQLException ex) {
+//        }
+//        return null;
+//    }
 
     public List<OrderDTO> getAllOrderDTOs(String status) {
         List<OrderDTO> list = new ArrayList<>();

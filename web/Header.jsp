@@ -157,7 +157,7 @@
                         <ul>
                             <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                             <li class="side-menu">
-                                <a href="#">
+                                <a href="cart">
                                     <i class="fa fa-shopping-bag"></i>
                                     <span class="badge">3</span>
                                     <p>My Cart</p>
@@ -188,8 +188,7 @@
                                 <p>1x - <span class="price">$40.00</span></p>
                             </li>
                             <li class="total">
-                                <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                                <span class="float-right"><strong>Total</strong>: $180.00</span>
+                                <a href="cart" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
                             </li>
                         </ul>
                     </li>
